@@ -10,7 +10,14 @@ import re
 
 comands={
     'focusMode?': "81 09 04 38 FF",
-    'focusPos?' : "81 09 04 48 FF"
+    'focusPos?' : "81 09 04 48 FF",
+    'off' : "81 01 04 00 03 FF",
+    'on' : "81 01 04 00 03 FF",
+    'focusLock' : "81 0a 04 68 02 FF",
+    'focusUnlock' : "81 0a 04 68 03 FF",
+    'focusManual' : "81 01 04 38 03 FF",
+    'focusAuto' : "81 01 04 38 02 FF"
+
 
 
 };#string to hex
