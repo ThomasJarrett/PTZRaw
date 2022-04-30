@@ -31,15 +31,17 @@ responses={
     '90 5. ff':"Complete",
     '90 50 03 ff': "Manual Focus",
     '90 50 02 ff': "Auto Focus",
-    '90 60 02 ff': ""
+    '90 60 02 ff': "Syntax Error",
+    '90 6y 41 ff': "Command Not Executable"
 
 
 }
 
 def translateResponse(resp):
     #? is wild card
-    pre = "^"
+    pre = ""
     post = ""
+    returnStr=""
     for s in list(responses.keys()):
         regExp=s.replace('?',"(.)")
         regExp=pre+regExp+post
@@ -101,6 +103,10 @@ def stringToBytes(st):
 def getInput():
 
     st=input("Input hexadecimal value: ")
-
+    if st=="help":
+        for s in list(comands.keys()):
+            print(s)
+        for s in list(functionComands.keys()):
+            print(s)
     #st="81 01 04 3f 02 00 ff"
     return stringToBytes(st)
