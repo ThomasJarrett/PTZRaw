@@ -4,6 +4,7 @@ import translator
 #from pip._vendor.distlib.compat import raw_input
 import sys
 
+a=5
 
 class ViscaConector:
     def __init__(self,serverName):
@@ -20,14 +21,22 @@ class ViscaConector:
             self.resetSocket()
             return
 
-        modifiedSentence = self.clientSocket.recv(1024)
-        #print('From Server:')
-        returnStr=str(modifiedSentence.hex())
-        niceStr=""
-        for i in range(0,int(len(returnStr)),2):
-            niceStr+=returnStr[i:i+2]
-            niceStr+=" "
-        return translator.translateResponse(niceStr)+"\n"+niceStr
+        return self.doResponse()
+    def doResponse(self):
+        try:
+            modifiedSentence = self.clientSocket.recv(1024)
+        except timeout:
+            return "Socket timeout"
+
+        # print('From Server:')
+        returnStr = str(modifiedSentence.hex())
+        niceStr = ""
+        for i in range(0, int(len(returnStr)), 2):
+            niceStr += returnStr[i:i + 2]
+            niceStr += " "
+        return translator.translateResponse(niceStr) + "\n" + niceStr
+
+
     def closeSocket(self):
         self.clientSocket.close()
     def resetSocket(self):

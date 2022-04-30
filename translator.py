@@ -10,7 +10,14 @@ import re
 
 comands={
     'focusMode?': "81 09 04 38 FF",
-    'focusPos?' : "81 09 04 48 FF"
+    'focusPos?' : "81 09 04 48 FF",
+    'off' : "81 01 04 00 03 FF",
+    'on' : "81 01 04 00 03 FF",
+    'focusLock' : "81 0a 04 68 02 FF",
+    'focusUnlock' : "81 0a 04 68 03 FF",
+    'focusManual' : "81 01 04 38 03 FF",
+    'focusAuto' : "81 01 04 38 02 FF"
+
 
 
 };#string to hex
@@ -24,15 +31,17 @@ responses={
     '90 5. ff':"Complete",
     '90 50 03 ff': "Manual Focus",
     '90 50 02 ff': "Auto Focus",
-    '90 60 02 ff': ""
+    '90 60 02 ff': "Syntax Error",
+    '90 6y 41 ff': "Command Not Executable"
 
 
 }
 
 def translateResponse(resp):
     #? is wild card
-    pre = "^"
+    pre = ""
     post = ""
+    returnStr=""
     for s in list(responses.keys()):
         regExp=s.replace('?',"(.)")
         regExp=pre+regExp+post
@@ -94,6 +103,10 @@ def stringToBytes(st):
 def getInput():
 
     st=input("Input hexadecimal value: ")
-
+    if st=="help":
+        for s in list(comands.keys()):
+            print(s)
+        for s in list(functionComands.keys()):
+            print(s)
     #st="81 01 04 3f 02 00 ff"
     return stringToBytes(st)

@@ -1,7 +1,7 @@
 import viscaConector
 from viscaConector import ViscaConector
 import translator
-vc=ViscaConector("192.168.1.152")
+vc=ViscaConector("192.168.1.153")
 
 
 def changeIP():
@@ -14,11 +14,15 @@ def changeIP():
 while True:
     message, didError = translator.getInput()
     if didError:
-        print("input wrong")
+
         if message=="q":
             break
         if message=="change":
             changeIP()
+        if message=="pass":
+            output=vc.doResponse()
+            print(output)
+        print("input wrong")
 
     if not didError:
         output=vc.sendMessage(message)
